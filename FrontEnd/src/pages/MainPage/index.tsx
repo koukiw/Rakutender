@@ -1,0 +1,38 @@
+import { Layout } from "antd";
+import PageTitle from "components/atoms/Text/PageTitle";
+import Sidebar from "components/organisms/Sidebar";
+import React, { useState } from "react";
+
+const { Header, Content, Sider } = Layout;
+
+const MainPage: React.FC = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
+        <Sidebar />
+      </Sider>
+      <Layout className="site-layout">
+        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Header className="site-layout-background" style={{ padding: 15 }}>
+          <PageTitle content="参加予定一覧" />
+        </Header>
+        <Content style={{ margin: "0 16px" }}>
+          <div
+            className="site-layout-background"
+            style={{ padding: 24, minHeight: 360 }}
+          >
+            画面
+          </div>
+        </Content>
+      </Layout>
+    </Layout>
+  );
+};
+
+export default MainPage;

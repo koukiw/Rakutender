@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  api:
+    build: .
+    container_name: rakutender-api
+    volumes:
+      - ./api:/api
+    working_dir: /api
+    ports:
+      - 8081:8081
+    tty: true
+    command: python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8081
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: mariadb
+    container_name: rakutender-db
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - "./mysql:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=rakutender
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
